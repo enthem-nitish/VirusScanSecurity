@@ -53,7 +53,7 @@ Deployment   → Your Deployment Platform
 
 ⚡ Getting Started
 Clone the repository
-git clone https://github.com/your-username/VirusScanSecurity.git
+git clone https://github.com/enthem-nitish/VirusScanSecurity.git
 cd VirusScanSecurity
 
 Install dependencies
