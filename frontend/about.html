@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About VirusScan Security — Architecture, detection methodologies, and technology stack.">
+    <title>About — VirusScan Security</title>
+
+    <style>
+        :root {
+            --bg: #F7F5F0;
+            --white: #FFFFFF;
+            --text: #17202A;
+            --primary: #E4573D;
+            --secondary: #52677A;
+            --safe: #16805C;
+            --warning: #C98200;
+            --danger: #C9362B;
+            --muted: #667085;
+            --border: #D9DDE3;
+            --hover: #F2F3F5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar-inner {
+            width: min(1100px, 100%);
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .navbar-brand-icon {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .navbar-right {
+            position: relative;
+        }
+
+        .nav-menu-btn {
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text);
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-menu-btn:hover {
+            background: var(--hover);
+        }
+
+        .site-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 190px;
+            padding: 6px;
+            display: none;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            box-shadow: 0 8px 24px rgba(23, 32, 42, 0.10);
+        }
+
+        .site-menu.open {
+            display: block;
+        }
+
+        .site-menu a {
+            display: block;
+            padding: 9px 10px;
+            border-radius: 6px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .site-menu a:hover {
+            background: var(--hover);
+        }
+
+        .site-menu .site-menu-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .site-menu .site-menu-primary:hover {
+            background: #d94d35;
+        }
+
+        .site-menu-divider {
+            height: 1px;
+            margin: 5px 0;
+            background: var(--border);
+        }
+
+        /* Main */
+        .container {
+            width: min(1100px, 100%);
+            margin: 0 auto;
+            padding: 44px 24px;
+        }
+
+        .page-header {
+            max-width: 780px;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 10px;
+            color: var(--text);
+            font-size: clamp(30px, 5vw, 44px);
+            line-height: 1.15;
+            letter-spacing: -0.8px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* Cards */
+        .content-card {
+            margin-bottom: 22px;
+            padding: 26px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .content-card h2 {
+            margin: 0 0 12px;
+            color: var(--text);
+            font-size: 23px;
+            line-height: 1.3;
+        }
+
+        .content-card > p {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        .content-card > p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .content-card strong {
+            color: var(--text);
+        }
+
+        /* Technology Grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .tech-item {
+            padding: 18px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+        }
+
+        .tech-item-name {
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .tech-item p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .mono {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .text-secondary {
+            color: var(--muted);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer .container {
+            padding-top: 22px;
+            padding-bottom: 22px;
+        }
+
+        .footer p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .navbar-inner {
+                padding: 12px 16px;
+            }
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .container {
+                padding: 32px 16px;
+            }
+
+            .page-header {
+                margin-bottom: 24px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .content-card {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .content-card h2 {
+                font-size: 20px;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .navbar-brand span {
+                font-size: 15px;
+            }
+
+            .nav-menu-btn {
+                padding: 8px 11px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .content-card {
+                padding: 17px;
+            }
+
+            .site-menu {
+                width: 175px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+   <nav class="navbar" style="
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background:#FFFFFF;
+    border-bottom:1px solid #D9DDE3;
+    box-shadow:0 2px 12px rgba(23,32,42,0.05);
+">
+
+    <div class="navbar-inner" style="
+        width:min(1180px, calc(100% - 32px));
+        min-height:68px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:24px;
+    ">
+
+        <!-- LOGO -->
+        <a href="/home"
+           class="navbar-brand"
+           aria-label="VirusScan Security home"
+           style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+                color:#17202A;
+                text-decoration:none;
+                font-size:18px;
+                font-weight:750;
+                letter-spacing:-0.3px;
+                white-space:nowrap;
+           ">
+
+            <div style="
+                width:38px;
+                height:38px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#FFF1EE;
+                border:1px solid #F5C7BF;
+                border-radius:10px;
+                color:#E4573D;
+                font-size:20px;
+                box-sizing:border-box;
+            ">🔎︎</div>
+
+            <span>VirusScan Security</span>
+        </a>
+
+
+        <!-- DESKTOP NAVIGATION -->
+        <div class="desktop-nav" style="
+            display:flex;
+            align-items:center;
+            gap:6px;
+        ">
+
+            <a href="#features"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Services</a>
+
+            <a href="/about"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >About Us</a>
+
+            <a href="/contact"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Contact Us</a>
+
+            <a href="/scanner"
+               style="
+                    margin-left:6px;
+                    padding:10px 16px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:650;
+                    transition:all .2s ease;
+                    box-shadow:0 2px 6px rgba(228,87,61,0.15);
+               "
+               onmouseover="this.style.background='#C9362B';this.style.transform='translateY(-1px)';"
+               onmouseout="this.style.background='#E4573D';this.style.transform='translateY(0)';"
+            >APK Analyzer</a>
+
+        </div>
+
+
+        <!-- MOBILE HAMBURGER -->
+        <button
+            class="mobile-menu-btn"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            onclick="
+                var menu=document.getElementById('mobile-site-menu');
+                var btn=this;
+                if(menu.style.display==='none' || menu.style.display===''){
+                    menu.style.display='block';
+                    btn.setAttribute('aria-expanded','true');
+                    this.querySelector('.line1').style.transform='rotate(45deg) translate(5px,5px)';
+                    this.querySelector('.line2').style.opacity='0';
+                    this.querySelector('.line3').style.transform='rotate(-45deg) translate(5px,-5px)';
+                }else{
+                    menu.style.display='none';
+                    btn.setAttribute('aria-expanded','false');
+                    this.querySelector('.line1').style.transform='none';
+                    this.querySelector('.line2').style.opacity='1';
+                    this.querySelector('.line3').style.transform='none';
+                }
+            "
+            style="
+                display:none;
+                width:42px;
+                height:42px;
+                padding:9px;
+                border:1px solid #D9DDE3;
+                border-radius:9px;
+                background:#FFFFFF;
+                cursor:pointer;
+                align-items:center;
+                justify-content:center;
+                flex-direction:column;
+                gap:5px;
+            "
+        >
+
+            <span class="line1" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line2" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line3" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+        </button>
+
+
+        <!-- MOBILE DROPDOWN -->
+        <div
+            id="mobile-site-menu"
+            style="
+                display:none;
+                position:absolute;
+                top:calc(100% + 8px);
+                left:16px;
+                right:16px;
+                padding:8px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:12px;
+                box-shadow:0 12px 30px rgba(23,32,42,0.12);
+                box-sizing:border-box;
+            "
+        >
+
+            <a href="#features"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Services</a>
+
+            <a href="/about"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >About Us</a>
+
+            <a href="/contact"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Contact Us</a>
+
+            <div style="
+                height:1px;
+                margin:6px 4px;
+                background:#D9DDE3;
+            "></div>
+
+            <a href="/scanner"
+               style="
+                    display:block;
+                    padding:11px 12px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    text-align:center;
+                    font-size:14px;
+                    font-weight:650;
+               "
+               onmouseover="this.style.background='#C9362B';"
+               onmouseout="this.style.background='#E4573D';"
+            >APK Analyzer</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESPONSIVE BEHAVIOR -->
+    <style>
+        @media (max-width: 768px) {
+
+            .desktop-nav {
+                display: none !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .navbar-inner {
+                min-height: 62px !important;
+            }
+
+        }
+
+        @media (min-width: 769px) {
+
+            .desktop-nav {
+                display: flex !important;
+            }
+
+            .mobile-menu-btn {
+                display: none !important;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .navbar-inner {
+                width: calc(100% - 20px) !important;
+            }
+
+            .navbar-brand {
+                font-size: 16px !important;
+            }
+
+            .navbar-brand div {
+                width:34px !important;
+                height:34px !important;
+                font-size:18px !important;
+            }
+
+            #mobile-site-menu {
+                left:10px !important;
+                right:10px !important;
+            }
+
+        }
+    </style>
+
+</nav>
+
+    <main class="container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>About VirusScan Security</h1>
+
+            <p>
+                An enterprise-grade, AI-assisted Android malware detection and
+                APK forensic analysis platform engineered for hackathons and
+                mobile security researchers.
+            </p>
+        </div>
+
+        <!-- Mission Card -->
+        <div class="content-card">
+
+            <h2>Our Core Mission</h2>
+
+            <p>
+                Mobile malware—ranging from covert stalkerware and SMS
+                interceptors to banking trojans and dynamic payload drop
+                loaders—poses an acute threat to smartphone users globally.
+                Traditional cloud scanners often provide cryptic binary flags
+                without transparent rationales.
+            </p>
+
+            <p>
+                <strong>VirusScan Security</strong> bridges the gap between raw
+                binary disassembly and intelligible threat intelligence. By
+                fusing local heuristic static decompilation with Google
+                Gemini's generative reasoning, we deliver explainable verdicts
+                with actionable remediation steps in seconds.
+            </p>
+
+        </div>
+
+        <!-- Detection Architecture -->
+        <div class="content-card">
+
+            <h2>Multi-Tier Detection Architecture</h2>
+
+            <p>
+                The analysis pipeline evaluates each application through five
+                synchronized security layers to identify structural,
+                behavioral, network, and cryptographic risks.
+            </p>
+
+            <div class="tech-grid">
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Archive &amp; Manifest Audit
+                    </div>
+
+                    <p>
+                        Validates APK integrity and analyzes AndroidManifest.xml
+                        for activities, receivers, services, providers, and
+                        exported components.
+                    </p>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Permission Matrix Analysis
+                    </div>
+
+                    <p>
+                        Evaluates requested permissions and identifies dangerous
+                        combinations associated with privilege abuse,
+                        surveillance, or unauthorized communication.
+                    </p>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Bytecode &amp; Network Forensics
+                    </div>
+
+                    <p>
+                        Inspects bytecode and embedded resources for network
+                        endpoints, dynamic loading, shell execution, and
+                        potential command-and-control activity.
+                    </p>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        X.509 Certificate Verification
+                    </div>
+
+                    <p>
+                        Examines signing certificates, certificate authorities,
+                        key strength, debug signatures, validity, and
+                        cryptographic fingerprints.
+                    </p>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        AI Threat Synthesis
+                    </div>
+
+                    <p>
+                        Correlates signals from the analysis layers to generate
+                        contextual threat explanations, risk summaries, and a
+                        final security assessment.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="content-card">
+
+            <h2>Technology Stack</h2>
+
+            <p>
+                Built with a lightweight security analysis stack designed for
+                application inspection, threat detection, and secure reporting.
+            </p>
+
+            <div class="tech-grid">
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Python 3.10+
+                    </div>
+
+                    <div class="mono text-secondary">
+                        Core Analysis
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Flask REST API
+                    </div>
+
+                    <div class="mono text-secondary">
+                        Backend Services
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Google Gemini AI
+                    </div>
+
+                    <div class="mono text-secondary">
+                        Threat Synthesis
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        Androguard / AST
+                    </div>
+
+                    <div class="mono text-secondary">
+                        APK Analysis
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        SQLite
+                    </div>
+
+                    <div class="mono text-secondary">
+                        Data Storage
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-item-name">
+                        HTML / CSS / JavaScript
+                    </div>
+
+                    <div class="mono text-secondary">
+                        Frontend Interface
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                © 2026
+                <a href="/home">VirusScan Security</a>
+                — AI-assisted Android security analysis. Built for Security.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const b = document.querySelector('.nav-menu-btn');
+            const m = document.getElementById('site-menu');
+
+            if (!b || !m) return;
+
+            b.addEventListener('click', e => {
+                e.stopPropagation();
+
+                const open = m.classList.toggle('open');
+
+                b.setAttribute('aria-expanded', String(open));
+            });
+
+            document.addEventListener('click', () => {
+                m.classList.remove('open');
+                b.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

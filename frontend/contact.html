@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact VirusScan Security — Submit feedback, request features, or report security observations.">
+    <title>Contact Us — VirusScan Security</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+   <nav class="navbar" style="
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background:#FFFFFF;
+    border-bottom:1px solid #D9DDE3;
+    box-shadow:0 2px 12px rgba(23,32,42,0.05);
+">
+
+    <div class="navbar-inner" style="
+        width:min(1180px, calc(100% - 32px));
+        min-height:68px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:24px;
+    ">
+
+        <!-- LOGO -->
+        <a href="/home"
+           class="navbar-brand"
+           aria-label="VirusScan Security home"
+           style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+                color:#17202A;
+                text-decoration:none;
+                font-size:18px;
+                font-weight:750;
+                letter-spacing:-0.3px;
+                white-space:nowrap;
+           ">
+
+            <div style="
+                width:38px;
+                height:38px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#FFF1EE;
+                border:1px solid #F5C7BF;
+                border-radius:10px;
+                color:#E4573D;
+                font-size:20px;
+                box-sizing:border-box;
+            ">🔎︎</div>
+
+            <span>VirusScan Security</span>
+        </a>
+
+
+        <!-- DESKTOP NAVIGATION -->
+        <div class="desktop-nav" style="
+            display:flex;
+            align-items:center;
+            gap:6px;
+        ">
+
+            <a href="#features"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Services</a>
+
+            <a href="/about"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >About Us</a>
+
+            <a href="/contact"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Contact Us</a>
+
+            <a href="/scanner"
+               style="
+                    margin-left:6px;
+                    padding:10px 16px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:650;
+                    transition:all .2s ease;
+                    box-shadow:0 2px 6px rgba(228,87,61,0.15);
+               "
+               onmouseover="this.style.background='#C9362B';this.style.transform='translateY(-1px)';"
+               onmouseout="this.style.background='#E4573D';this.style.transform='translateY(0)';"
+            >APK Analyzer</a>
+
+        </div>
+
+
+        <!-- MOBILE HAMBURGER -->
+        <button
+            class="mobile-menu-btn"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            onclick="
+                var menu=document.getElementById('mobile-site-menu');
+                var btn=this;
+                if(menu.style.display==='none' || menu.style.display===''){
+                    menu.style.display='block';
+                    btn.setAttribute('aria-expanded','true');
+                    this.querySelector('.line1').style.transform='rotate(45deg) translate(5px,5px)';
+                    this.querySelector('.line2').style.opacity='0';
+                    this.querySelector('.line3').style.transform='rotate(-45deg) translate(5px,-5px)';
+                }else{
+                    menu.style.display='none';
+                    btn.setAttribute('aria-expanded','false');
+                    this.querySelector('.line1').style.transform='none';
+                    this.querySelector('.line2').style.opacity='1';
+                    this.querySelector('.line3').style.transform='none';
+                }
+            "
+            style="
+                display:none;
+                width:42px;
+                height:42px;
+                padding:9px;
+                border:1px solid #D9DDE3;
+                border-radius:9px;
+                background:#FFFFFF;
+                cursor:pointer;
+                align-items:center;
+                justify-content:center;
+                flex-direction:column;
+                gap:5px;
+            "
+        >
+
+            <span class="line1" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line2" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line3" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+        </button>
+
+
+        <!-- MOBILE DROPDOWN -->
+        <div
+            id="mobile-site-menu"
+            style="
+                display:none;
+                position:absolute;
+                top:calc(100% + 8px);
+                left:16px;
+                right:16px;
+                padding:8px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:12px;
+                box-shadow:0 12px 30px rgba(23,32,42,0.12);
+                box-sizing:border-box;
+            "
+        >
+
+            <a href="#features"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Services</a>
+
+            <a href="/about"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >About Us</a>
+
+            <a href="/contact"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Contact Us</a>
+
+            <div style="
+                height:1px;
+                margin:6px 4px;
+                background:#D9DDE3;
+            "></div>
+
+            <a href="/scanner"
+               style="
+                    display:block;
+                    padding:11px 12px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    text-align:center;
+                    font-size:14px;
+                    font-weight:650;
+               "
+               onmouseover="this.style.background='#C9362B';"
+               onmouseout="this.style.background='#E4573D';"
+            >APK Analyzer</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESPONSIVE BEHAVIOR -->
+    <style>
+        @media (max-width: 768px) {
+
+            .desktop-nav {
+                display: none !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .navbar-inner {
+                min-height: 62px !important;
+            }
+
+        }
+
+        @media (min-width: 769px) {
+
+            .desktop-nav {
+                display: flex !important;
+            }
+
+            .mobile-menu-btn {
+                display: none !important;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .navbar-inner {
+                width: calc(100% - 20px) !important;
+            }
+
+            .navbar-brand {
+                font-size: 16px !important;
+            }
+
+            .navbar-brand div {
+                width:34px !important;
+                height:34px !important;
+                font-size:18px !important;
+            }
+
+            #mobile-site-menu {
+                left:10px !important;
+                right:10px !important;
+            }
+
+        }
+    </style>
+
+</nav>
+
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Contact Security Engineering</h1>
+            <p>Have questions about a flagged APK, suggestions for new heuristic rules, or hackathon feedback? Drop us a line below.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; max-width: 1000px; margin: 0 auto var(--space-3xl);">
+            <!-- Contact Form Card -->
+            <div class="content-card">
+                <h2>Send Us a Message</h2>
+
+                <form id="contact-form" class="contact-form" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label for="contact-name" class="form-label">Full Name</label>
+                        <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Morgan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-email" class="form-label">Email Address</label>
+                        <input type="email" id="contact-email" class="form-input" placeholder="alex@domain.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message" class="form-label">Message / Inquiry</label>
+                        <textarea id="contact-message" class="form-textarea" placeholder="Describe your question, APK analysis feedback, or collaboration idea..." required></textarea>
+                    </div>
+
+                    <button type="submit" id="btn-submit-contact" class="btn btn-primary btn-lg" style="width: 100%;">
+                        ✉ Send Message
+                    </button>
+                </form>
+
+                <div id="contact-success" class="form-success" style="margin-top: 20px;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">✓</div>
+                    <h3>Message Received!</h3>
+                    <p style="font-size: 14px; margin-top: 4px;">Thank you for contacting VirusScan Security. Our team will review your inquiry shortly.</p>
+                </div>
+            </div>
+
+            <!-- Side Info -->
+            <div>
+                <div class="content-card">
+                    <h2>Support & Research Channels</h2>
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+                        <div style="display: flex; gap: 12px; align-items: flex-start;">
+                            <div style="font-size: 20px;">🛡</div>
+                            <div>
+                                <strong style="font-size: 14px; color: var(--text-main);">Threat Intelligence Team</strong>
+                                <p style="font-size: 13px; color: var(--text-secondary);">Submit suspected 0-day APK samples or novel evasive malware techniques.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; align-items: flex-start;">
+                            <div style="font-size: 20px;">⚡</div>
+                            <div>
+                                <strong style="font-size: 14px; color: var(--text-main);">API & Enterprise Integration</strong>
+                                <p style="font-size: 13px; color: var(--text-secondary);">Inquire about automated CI/CD pipeline scanning and high-throughput endpoints.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; align-items: flex-start;">
+                            <div style="font-size: 20px;">🏆</div>
+                            <div>
+                                <strong style="font-size: 14px; color: var(--text-main);">Hackathon Project Team</strong>
+                                <p style="font-size: 13px; color: var(--text-secondary);">VirusScan Security v1.0 — Android Security Innovation Track.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h2>Frequently Asked Questions</h2>
+                    <div style="margin-top: 12px;">
+                        <strong style="font-size: 13px; color: var(--text-main); display: block; margin-bottom: 2px;">Are uploaded APK files stored permanently?</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">No. Uploaded APK binaries are securely deleted immediately following extraction and scoring.</p>
+
+                        <strong style="font-size: 13px; color: var(--text-main); display: block; margin-bottom: 2px;">Does static analysis execute the APK?</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary);">Never. Static analysis strictly decompiles bytecode and inspects declarative resources without executing any binary instructions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 <a href="/home">VirusScan Security</a> — AI-assisted Android security analysis. Built for Security.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const b=document.querySelector('.nav-menu-btn'), m=document.getElementById('site-menu');
+            if(!b||!m)return;
+            b.addEventListener('click',e=>{e.stopPropagation();const o=m.classList.toggle('open');b.setAttribute('aria-expanded',String(o));});
+            document.addEventListener('click',()=>{m.classList.remove('open');b.setAttribute('aria-expanded','false');});
+        });
+    </script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!Auth.requireAuth()) return;
+
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('btn-submit-contact');
+            const successBox = document.getElementById('contact-success');
+
+            // Pre-fill user details if available
+            const user = Auth.getUser();
+            if (user) {
+                if (user.name) document.getElementById('contact-name').value = user.name;
+                if (user.email && !user.email.includes('example.com')) {
+                    document.getElementById('contact-email').value = user.email;
+                }
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('contact-name').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+                const message = document.getElementById('contact-message').value.trim();
+
+                if (!name || !email || !message) {
+                    Toast.warning('Please fill in all fields.');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="spinner spinner-sm" style="display:inline-block; vertical-align:middle; margin-right:8px;"></div> Sending...';
+
+                try {
+                    await API.submitContact(name, email, message);
+                    form.style.display = 'none';
+                    successBox.style.display = 'block';
+                    Toast.success('Your message has been submitted!');
+                } catch (err) {
+                    Toast.error(err.message || 'Failed to submit message.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✉ Send Message';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

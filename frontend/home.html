@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VirusScan Security Dashboard — Analyze APKs, URLs, certificates and application behavior before they become a threat.">
+    <title>Dashboard — VirusScan Security</title>
+</head>
+
+<body style="
+    margin:0;
+    padding:0;
+    background:#F7F5F0;
+    color:#17202A;
+    font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height:1.6;
+">
+
+<!-- ========================= NAVBAR ========================= -->
+<nav class="navbar" style="
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background:#FFFFFF;
+    border-bottom:1px solid #D9DDE3;
+    box-shadow:0 2px 12px rgba(23,32,42,0.05);
+">
+
+    <div class="navbar-inner" style="
+        width:min(1180px, calc(100% - 32px));
+        min-height:68px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:24px;
+    ">
+
+        <!-- LOGO -->
+        <a href="/home"
+           class="navbar-brand"
+           aria-label="VirusScan Security home"
+           style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+                color:#17202A;
+                text-decoration:none;
+                font-size:18px;
+                font-weight:750;
+                letter-spacing:-0.3px;
+                white-space:nowrap;
+           ">
+
+            <div style="
+                width:38px;
+                height:38px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#FFF1EE;
+                border:1px solid #F5C7BF;
+                border-radius:10px;
+                color:#E4573D;
+                font-size:20px;
+                box-sizing:border-box;
+            ">🔎︎</div>
+
+            <span>VirusScan Security</span>
+        </a>
+
+
+        <!-- DESKTOP NAVIGATION -->
+        <div class="desktop-nav" style="
+            display:flex;
+            align-items:center;
+            gap:6px;
+        ">
+
+            <a href="#features"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Services</a>
+
+            <a href="/about"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >About Us</a>
+
+            <a href="/contact"
+               style="
+                    padding:9px 13px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+                    transition:all .2s ease;
+               "
+               onmouseover="this.style.background='#F2F3F5';this.style.color='#E4573D';"
+               onmouseout="this.style.background='transparent';this.style.color='#17202A';"
+            >Contact Us</a>
+
+            <a href="/scanner"
+               style="
+                    margin-left:6px;
+                    padding:10px 16px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:650;
+                    transition:all .2s ease;
+                    box-shadow:0 2px 6px rgba(228,87,61,0.15);
+               "
+               onmouseover="this.style.background='#C9362B';this.style.transform='translateY(-1px)';"
+               onmouseout="this.style.background='#E4573D';this.style.transform='translateY(0)';"
+            >APK Analyzer</a>
+
+        </div>
+
+
+        <!-- MOBILE HAMBURGER -->
+        <button
+            class="mobile-menu-btn"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            onclick="
+                var menu=document.getElementById('mobile-site-menu');
+                var btn=this;
+                if(menu.style.display==='none' || menu.style.display===''){
+                    menu.style.display='block';
+                    btn.setAttribute('aria-expanded','true');
+                    this.querySelector('.line1').style.transform='rotate(45deg) translate(5px,5px)';
+                    this.querySelector('.line2').style.opacity='0';
+                    this.querySelector('.line3').style.transform='rotate(-45deg) translate(5px,-5px)';
+                }else{
+                    menu.style.display='none';
+                    btn.setAttribute('aria-expanded','false');
+                    this.querySelector('.line1').style.transform='none';
+                    this.querySelector('.line2').style.opacity='1';
+                    this.querySelector('.line3').style.transform='none';
+                }
+            "
+            style="
+                display:none;
+                width:42px;
+                height:42px;
+                padding:9px;
+                border:1px solid #D9DDE3;
+                border-radius:9px;
+                background:#FFFFFF;
+                cursor:pointer;
+                align-items:center;
+                justify-content:center;
+                flex-direction:column;
+                gap:5px;
+            "
+        >
+
+            <span class="line1" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line2" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+            <span class="line3" style="
+                display:block;
+                width:20px;
+                height:2px;
+                background:#17202A;
+                border-radius:2px;
+                transition:all .2s ease;
+            "></span>
+
+        </button>
+
+
+        <!-- MOBILE DROPDOWN -->
+        <div
+            id="mobile-site-menu"
+            style="
+                display:none;
+                position:absolute;
+                top:calc(100% + 8px);
+                left:16px;
+                right:16px;
+                padding:8px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:12px;
+                box-shadow:0 12px 30px rgba(23,32,42,0.12);
+                box-sizing:border-box;
+            "
+        >
+
+            <a href="#features"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Services</a>
+
+            <a href="/about"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >About Us</a>
+
+            <a href="/contact"
+               onclick="document.getElementById('mobile-site-menu').style.display='none';"
+               style="
+                    display:block;
+                    padding:12px;
+                    border-radius:8px;
+                    color:#17202A;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:550;
+               "
+               onmouseover="this.style.background='#F2F3F5';"
+               onmouseout="this.style.background='transparent';"
+            >Contact Us</a>
+
+            <div style="
+                height:1px;
+                margin:6px 4px;
+                background:#D9DDE3;
+            "></div>
+
+            <a href="/scanner"
+               style="
+                    display:block;
+                    padding:11px 12px;
+                    border-radius:8px;
+                    background:#E4573D;
+                    color:#FFFFFF;
+                    text-decoration:none;
+                    text-align:center;
+                    font-size:14px;
+                    font-weight:650;
+               "
+               onmouseover="this.style.background='#C9362B';"
+               onmouseout="this.style.background='#E4573D';"
+            >APK Analyzer</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESPONSIVE BEHAVIOR -->
+    <style>
+        @media (max-width: 768px) {
+
+            .desktop-nav {
+                display: none !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .navbar-inner {
+                min-height: 62px !important;
+            }
+
+        }
+
+        @media (min-width: 769px) {
+
+            .desktop-nav {
+                display: flex !important;
+            }
+
+            .mobile-menu-btn {
+                display: none !important;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .navbar-inner {
+                width: calc(100% - 20px) !important;
+            }
+
+            .navbar-brand {
+                font-size: 16px !important;
+            }
+
+            .navbar-brand div {
+                width:34px !important;
+                height:34px !important;
+                font-size:18px !important;
+            }
+
+            #mobile-site-menu {
+                left:10px !important;
+                right:10px !important;
+            }
+
+        }
+    </style>
+
+</nav>
+
+
+<!-- ========================= MAIN ========================= -->
+<main>
+
+    <!-- HERO -->
+    <section class="hero hero-compact container" style="
+        width:min(1180px, calc(100% - 32px));
+        margin:0 auto;
+        padding:76px 0 62px;
+    ">
+
+        <div class="hero-copy" style="
+            max-width:820px;
+        ">
+
+            
+
+            <h1 style="
+                margin:0 0 18px;
+                max-width:780px;
+                color:#17202A;
+                font-size:clamp(36px, 6vw, 64px);
+                line-height:1.06;
+                letter-spacing:-2.5px;
+                font-weight:800;
+            ">
+                Know what an APK can do
+                <span style="color:#E4573D;">before you install it.</span>
+            </h1>
+
+            <p style="
+                max-width:720px;
+                margin:0;
+                color:#667085;
+                font-size:17px;
+                line-height:1.75;
+            ">
+                Deep static inspection of permissions, components, bytecode,
+                network indicators and signing evidence — with AI used as a
+                bounded second opinion.
+            </p>
+
+            <div class="hero-actions" style="
+                display:flex;
+                align-items:center;
+                flex-wrap:wrap;
+                gap:16px;
+                margin-top:30px;
+            ">
+
+                <a href="/scanner"
+                   class="btn btn-primary btn-lg"
+                   style="
+                        display:inline-flex;
+                        align-items:center;
+                        justify-content:center;
+                        min-height:46px;
+                        padding:0 20px;
+                        border-radius:9px;
+                        background:#E4573D;
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-size:14px;
+                        font-weight:700;
+                        box-sizing:border-box;
+                        box-shadow:0 5px 14px rgba(228,87,61,0.18);
+                        transition:all .2s ease;
+                   "
+                   onmouseover="this.style.background='#C9362B';this.style.transform='translateY(-1px)';"
+                   onmouseout="this.style.background='#E4573D';this.style.transform='translateY(0)';"
+                >
+                    🔍 Analyze an APK
+                </a>
+
+                <a href="#features"
+                   class="hero-text-link"
+                   style="
+                        color:#52677A;
+                        text-decoration:none;
+                        font-size:14px;
+                        font-weight:650;
+                   "
+                   onmouseover="this.style.color='#E4573D';"
+                   onmouseout="this.style.color='#52677A';"
+                >
+                    Explore services →
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FEATURES -->
+    <section
+        class="features-section container"
+        id="features"
+        style="
+            width:min(1180px, calc(100% - 32px));
+            margin:0 auto;
+            padding:20px 0 82px;
+        "
+    >
+
+        <div class="section-header" style="
+            margin-bottom:28px;
+        ">
+
+            <p style="
+                margin:0 0 7px;
+                color:#E4573D;
+                font-size:12px;
+                font-weight:750;
+                text-transform:uppercase;
+                letter-spacing:1px;
+            ">
+                Security Toolkit
+            </p>
+
+            <h2 style="
+                margin:0 0 7px;
+                color:#17202A;
+                font-size:30px;
+                line-height:1.2;
+                letter-spacing:-.8px;
+                font-weight:750;
+            ">
+                Security Services
+            </h2>
+
+            <p style="
+                margin:0;
+                color:#667085;
+                font-size:15px;
+            ">
+                Comprehensive Android security analysis tools to keep you safe.
+            </p>
+        </div>
+
+
+        <div class="features-grid" style="
+            display:grid;
+            grid-template-columns:repeat(4, minmax(0, 1fr));
+            gap:18px;
+        ">
+
+            <!-- APK Scanner -->
+            <div class="feature-card" style="
+                display:flex;
+                flex-direction:column;
+                min-height:350px;
+                padding:24px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:14px;
+                box-sizing:border-box;
+                box-shadow:0 3px 12px rgba(23,32,42,0.035);
+                transition:all .2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#E4573D';this.style.boxShadow='0 10px 28px rgba(23,32,42,0.08)';"
+            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='#D9DDE3';this.style.boxShadow='0 3px 12px rgba(23,32,42,0.035)';"
+            >
+
+                <div class="feature-icon feature-icon--scanner" style="
+                    width:44px;
+                    height:44px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin-bottom:18px;
+                    background:#FFF1EE;
+                    border:1px solid #F5C7BF;
+                    border-radius:11px;
+                    color:#E4573D;
+                    font-size:21px;
+                ">🔎︎</div>
+
+                <span class="feature-tag feature-tag--core" style="
+                    align-self:flex-start;
+                    margin-bottom:10px;
+                    padding:4px 8px;
+                    background:#FFF1EE;
+                    color:#C9362B;
+                    border-radius:5px;
+                    font-size:10px;
+                    font-weight:750;
+                    letter-spacing:.4px;
+                    text-transform:uppercase;
+                ">Core Feature</span>
+
+                <h3 style="
+                    margin:0 0 9px;
+                    color:#17202A;
+                    font-size:18px;
+                    line-height:1.3;
+                ">APK Malware Scanner</h3>
+
+                <p style="
+                    margin:0 0 22px;
+                    color:#667085;
+                    font-size:13.5px;
+                    line-height:1.7;
+                    flex:1;
+                ">
+                    Upload an Android APK and analyze its permissions,
+                    components, API calls, intents, certificates, and
+                    suspicious indicators.
+                </p>
+
+                <a href="/scanner"
+                   class="btn btn-primary"
+                   style="
+                        display:inline-flex;
+                        justify-content:center;
+                        align-items:center;
+                        min-height:40px;
+                        padding:0 14px;
+                        border-radius:8px;
+                        background:#E4573D;
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-size:13px;
+                        font-weight:700;
+                   "
+                   onmouseover="this.style.background='#C9362B';"
+                   onmouseout="this.style.background='#E4573D';"
+                >Analyze APK</a>
+            </div>
+
+
+            <!-- Behavior Sandbox -->
+            <div class="feature-card" style="
+                display:flex;
+                flex-direction:column;
+                min-height:350px;
+                padding:24px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:14px;
+                box-sizing:border-box;
+                box-shadow:0 3px 12px rgba(23,32,42,0.035);
+                transition:all .2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#52677A';this.style.boxShadow='0 10px 28px rgba(23,32,42,0.08)';"
+            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='#D9DDE3';this.style.boxShadow='0 3px 12px rgba(23,32,42,0.035)';"
+            >
+
+                <div class="feature-icon feature-icon--behavior" style="
+                    width:44px;
+                    height:44px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin-bottom:18px;
+                    background:#EEF2F5;
+                    border:1px solid #D5DDE4;
+                    border-radius:11px;
+                    color:#52677A;
+                    font-size:21px;
+                ">🔐</div>
+
+                <span class="feature-tag feature-tag--analysis" style="
+                    align-self:flex-start;
+                    margin-bottom:10px;
+                    padding:4px 8px;
+                    background:#EEF2F5;
+                    color:#52677A;
+                    border-radius:5px;
+                    font-size:10px;
+                    font-weight:750;
+                    letter-spacing:.4px;
+                    text-transform:uppercase;
+                ">Analysis</span>
+
+                <h3 style="
+                    margin:0 0 9px;
+                    color:#17202A;
+                    font-size:18px;
+                    line-height:1.3;
+                ">Behavior Sandbox</h3>
+
+                <p style="
+                    margin:0 0 22px;
+                    color:#667085;
+                    font-size:13.5px;
+                    line-height:1.7;
+                    flex:1;
+                ">
+                    Evaluate potentially dangerous application behaviors
+                    using static indicators and controlled behavioral analysis.
+                </p>
+
+                <a href="/behavior"
+                   class="btn btn-secondary"
+                   style="
+                        display:inline-flex;
+                        justify-content:center;
+                        align-items:center;
+                        min-height:40px;
+                        padding:0 14px;
+                        border-radius:8px;
+                        background:#52677A;
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-size:13px;
+                        font-weight:700;
+                   "
+                   onmouseover="this.style.background='#17202A';"
+                   onmouseout="this.style.background='#52677A';"
+                >Run Behavior Analysis</a>
+            </div>
+
+
+            <!-- Certificate Analyzer -->
+            <div class="feature-card" style="
+                display:flex;
+                flex-direction:column;
+                min-height:350px;
+                padding:24px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:14px;
+                box-sizing:border-box;
+                box-shadow:0 3px 12px rgba(23,32,42,0.035);
+                transition:all .2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#16805C';this.style.boxShadow='0 10px 28px rgba(23,32,42,0.08)';"
+            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='#D9DDE3';this.style.boxShadow='0 3px 12px rgba(23,32,42,0.035)';"
+            >
+
+                <div class="feature-icon feature-icon--cert" style="
+                    width:44px;
+                    height:44px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin-bottom:18px;
+                    background:#EAF7F2;
+                    border:1px solid #BFE4D4;
+                    border-radius:11px;
+                    color:#16805C;
+                    font-size:21px;
+                ">📃</div>
+
+                <span class="feature-tag feature-tag--security" style="
+                    align-self:flex-start;
+                    margin-bottom:10px;
+                    padding:4px 8px;
+                    background:#EAF7F2;
+                    color:#16805C;
+                    border-radius:5px;
+                    font-size:10px;
+                    font-weight:750;
+                    letter-spacing:.4px;
+                    text-transform:uppercase;
+                ">Security</span>
+
+                <h3 style="
+                    margin:0 0 9px;
+                    color:#17202A;
+                    font-size:18px;
+                    line-height:1.3;
+                ">Certificate Analyzer</h3>
+
+                <p style="
+                    margin:0 0 22px;
+                    color:#667085;
+                    font-size:13.5px;
+                    line-height:1.7;
+                    flex:1;
+                ">
+                    Inspect APK signing information, certificate metadata,
+                    signer information and suspicious certificate indicators.
+                </p>
+
+                <a href="/certificate"
+                   class="btn btn-secondary"
+                   style="
+                        display:inline-flex;
+                        justify-content:center;
+                        align-items:center;
+                        min-height:40px;
+                        padding:0 14px;
+                        border-radius:8px;
+                        background:#52677A;
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-size:13px;
+                        font-weight:700;
+                   "
+                   onmouseover="this.style.background='#17202A';"
+                   onmouseout="this.style.background='#52677A';"
+                >Analyze Certificate</a>
+            </div>
+
+
+            <!-- Protection -->
+            <div class="feature-card" style="
+                display:flex;
+                flex-direction:column;
+                min-height:350px;
+                padding:24px;
+                background:#FFFFFF;
+                border:1px solid #D9DDE3;
+                border-radius:14px;
+                box-sizing:border-box;
+                box-shadow:0 3px 12px rgba(23,32,42,0.035);
+                transition:all .2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#C98200';this.style.boxShadow='0 10px 28px rgba(23,32,42,0.08)';"
+            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='#D9DDE3';this.style.boxShadow='0 3px 12px rgba(23,32,42,0.035)';"
+            >
+
+                <div class="feature-icon feature-icon--protection" style="
+                    width:44px;
+                    height:44px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin-bottom:18px;
+                    background:#FFF6E7;
+                    border:1px solid #E9D2A4;
+                    border-radius:11px;
+                    color:#C98200;
+                    font-size:21px;
+                ">🔐</div>
+
+                <span class="feature-tag feature-tag--protection" style="
+                    align-self:flex-start;
+                    margin-bottom:10px;
+                    padding:4px 8px;
+                    background:#FFF6E7;
+                    color:#C98200;
+                    border-radius:5px;
+                    font-size:10px;
+                    font-weight:750;
+                    letter-spacing:.4px;
+                    text-transform:uppercase;
+                ">Protection</span>
+
+                <h3 style="
+                    margin:0 0 9px;
+                    color:#17202A;
+                    font-size:18px;
+                    line-height:1.3;
+                ">Your Protection</h3>
+
+                <p style="
+                    margin:0 0 22px;
+                    color:#667085;
+                    font-size:13.5px;
+                    line-height:1.7;
+                    flex:1;
+                ">
+                    View your security recommendations, recently detected
+                    threats, and personalized protection score based on your
+                    scan history.
+                </p>
+
+                <a href="/protection"
+                   class="btn btn-secondary"
+                   style="
+                        display:inline-flex;
+                        justify-content:center;
+                        align-items:center;
+                        min-height:40px;
+                        padding:0 14px;
+                        border-radius:8px;
+                        background:#52677A;
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-size:13px;
+                        font-weight:700;
+                   "
+                   onmouseover="this.style.background='#17202A';"
+                   onmouseout="this.style.background='#52677A';"
+                >View Protection</a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="footer" style="
+    border-top:1px solid #D9DDE3;
+    background:#FFFFFF;
+">
+
+    <div class="container" style="
+        width:min(1180px, calc(100% - 32px));
+        margin:0 auto;
+        padding:24px 0;
+    ">
+
+        <p style="
+            margin:0;
+            color:#667085;
+            font-size:12px;
+            text-align:center;
+        ">
+            © 2026
+            <a href="/home"
+               style="
+                    color:#52677A;
+                    text-decoration:none;
+                    font-weight:650;
+               "
+               onmouseover="this.style.color='#E4573D';"
+               onmouseout="this.style.color='#52677A';"
+            >VirusScan Security</a>
+            — AI-assisted Android security analysis. Built for Security.
+        </p>
+
+    </div>
+</footer>
+
+
+<!-- ========================= JAVASCRIPT ========================= -->
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const menuBtn = document.querySelector('.nav-menu-btn');
+    const menu = document.getElementById('site-menu');
+
+    if (menuBtn && menu) {
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const open = menu.classList.toggle('open');
+
+            menu.style.display = open ? 'block' : 'none';
+
+            menuBtn.setAttribute(
+                'aria-expanded',
+                String(open)
+            );
+        });
+
+        document.addEventListener('click', () => {
+            menu.classList.remove('open');
+            menu.style.display = 'none';
+            menuBtn.setAttribute('aria-expanded', 'false');
+        });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    if (!Auth.requireAuth()) return;
+
+    // Load stats
+    try {
+
+        const stats = await API.getStats();
+
+        const apkScans = document.getElementById('stat-apk-scans');
+        const threats = document.getElementById('stat-threats');
+        const urls = document.getElementById('stat-urls');
+        const score = document.getElementById('stat-score');
+
+        if (apkScans)
+            apkScans.textContent = stats.apk_scans || 0;
+
+        if (threats)
+            threats.textContent = stats.threats_detected || 0;
+
+        if (urls)
+            urls.textContent = stats.urls_analyzed || 0;
+
+        if (score)
+            score.textContent = stats.security_score || 85;
+
+    } catch (e) {
+        console.error('Stats error:', e);
+    }
+
+    // Load history
+    loadHistory();
+});
+
+
+async function loadHistory() {
+
+    try {
+
+        const history = await API.getHistory(10);
+
+        const container =
+            document.getElementById('history-container');
+
+        const emptyEl =
+            document.getElementById('history-empty');
+
+        if (!container) return;
+
+        if (history.length === 0) {
+
+            if (emptyEl)
+                emptyEl.style.display = '';
+
+            return;
+        }
+
+        if (emptyEl)
+            emptyEl.style.display = 'none';
+
+        container.innerHTML = `
+            <div class="history-table-wrapper"
+                 style="
+                    width:100%;
+                    overflow-x:auto;
+                    background:#FFFFFF;
+                    border:1px solid #D9DDE3;
+                    border-radius:12px;
+                 ">
+
+                <table class="history-table"
+                       style="
+                            width:100%;
+                            border-collapse:collapse;
+                            min-width:650px;
+                            color:#17202A;
+                       ">
+
+                    <thead>
+                        <tr style="
+                            border-bottom:1px solid #D9DDE3;
+                            background:#F7F5F0;
+                        ">
+
+                            <th style="
+                                padding:12px 14px;
+                                text-align:left;
+                                color:#667085;
+                                font-size:11px;
+                                text-transform:uppercase;
+                                letter-spacing:.5px;
+                            ">Type</th>
+
+                            <th style="
+                                padding:12px 14px;
+                                text-align:left;
+                                color:#667085;
+                                font-size:11px;
+                                text-transform:uppercase;
+                                letter-spacing:.5px;
+                            ">File / URL</th>
+
+                            <th style="
+                                padding:12px 14px;
+                                text-align:left;
+                                color:#667085;
+                                font-size:11px;
+                                text-transform:uppercase;
+                                letter-spacing:.5px;
+                            ">Score</th>
+
+                            <th style="
+                                padding:12px 14px;
+                                text-align:left;
+                                color:#667085;
+                                font-size:11px;
+                                text-transform:uppercase;
+                                letter-spacing:.5px;
+                            ">Status</th>
+
+                            <th style="
+                                padding:12px 14px;
+                                text-align:left;
+                                color:#667085;
+                                font-size:11px;
+                                text-transform:uppercase;
+                                letter-spacing:.5px;
+                            ">Date</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        ${history.map(h => `
+                            <tr style="
+                                border-bottom:1px solid #D9DDE3;
+                            ">
+
+                                <td style="padding:13px 14px;">
+                                    <span class="badge badge-info"
+                                          style="
+                                            display:inline-block;
+                                            padding:4px 7px;
+                                            border-radius:5px;
+                                            background:#EEF2F5;
+                                            color:#52677A;
+                                            font-size:10px;
+                                            font-weight:700;
+                                          ">
+                                        ${escapeHtml(
+                                            h.scan_type.toUpperCase()
+                                        )}
+                                    </span>
+                                </td>
+
+                                <td style="
+                                    padding:13px 14px;
+                                    font-family:'JetBrains Mono',
+                                    'Courier New', monospace;
+                                    font-size:13px;
+                                ">
+                                    ${escapeHtml(
+                                        h.filename || 'N/A'
+                                    )}
+                                </td>
+
+                                <td class="score-cell"
+                                    style="
+                                        padding:13px 14px;
+                                        font-weight:750;
+                                        color:${getClassificationColor(
+                                            h.classification
+                                        )};
+                                    ">
+                                    ${h.risk_score ?? 'N/A'}
+                                </td>
+
+                                <td style="padding:13px 14px;">
+                                    ${getClassificationBadge(
+                                        h.classification || 'UNKNOWN'
+                                    )}
+                                </td>
+
+                                <td style="
+                                    padding:13px 14px;
+                                    font-size:12px;
+                                    color:#667085;
+                                ">
+                                    ${formatDate(h.created_at)}
+                                </td>
+
+                            </tr>
+                        `).join('')}
+
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+    } catch (e) {
+
+        console.error('History error:', e);
+
+    }
+}
+</script>
+
+
+<!-- ========================= RESPONSIVE INLINE STYLING ========================= -->
+<style>
+/*
+    This is only responsive behavior.
+    All normal visual styling remains inline as requested.
+*/
+
+@media (max-width: 1050px) {
+
+    .features-grid {
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .navbar-inner {
+        min-height:60px !important;
+    }
+
+    .navbar-brand span {
+        font-size:15px !important;
+    }
+
+    .navbar-brand-icon {
+        width:34px !important;
+        height:34px !important;
+    }
+
+    .hero {
+        padding:52px 0 45px !important;
+    }
+
+    .hero h1 {
+        letter-spacing:-1.5px !important;
+    }
+
+    .hero-copy > p {
+        font-size:15px !important;
+    }
+
+    .hero-actions {
+        align-items:stretch !important;
+        flex-direction:column !important;
+    }
+
+    .hero-actions .btn {
+        width:100%;
+    }
+
+    .hero-text-link {
+        text-align:center;
+    }
+
+    .features-section {
+        padding-bottom:55px !important;
+    }
+
+    .features-grid {
+        grid-template-columns:1fr !important;
+    }
+
+    .feature-card {
+        min-height:0 !important;
+    }
+}
+
+@media (max-width:430px) {
+
+    .navbar-inner,
+    .container {
+        width:calc(100% - 24px) !important;
+    }
+
+    .navbar-brand span {
+        display:none;
+    }
+
+    .hero h1 {
+        font-size:37px !important;
+    }
+
+    .section-header h2 {
+        font-size:26px !important;
+    }
+
+    .site-menu {
+        width:200px !important;
+    }
+}
+</style>
+
+</body>
+</html>
