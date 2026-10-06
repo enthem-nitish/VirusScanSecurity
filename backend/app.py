@@ -113,7 +113,7 @@ UPLOAD_FOLDER = os.path.join(
 )
 
 MAX_APK_SIZE_MB = int(
-    os.getenv("MAX_APK_SIZE_MB", 50)
+    os.getenv("MAX_APK_SIZE_MB", 200)
 )
 
 MAX_APK_SIZE = MAX_APK_SIZE_MB * 1024 * 1024
